@@ -189,3 +189,50 @@ button{font:inherit}
   gap: 32px;
   flex-wrap: wrap;
 }
+
+
+/* Align all project-card footers */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card-bottom {
+  margin-top: auto;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 30px;
+}
+
+/* Metadata stays on one line where space allows */
+.project-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Make all project links identical */
+.project-card-bottom .project-link {
+  flex-shrink: 0;
+
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+
+margin-top: auto;
