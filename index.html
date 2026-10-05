@@ -48,35 +48,331 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal delay-1" aria-label="Decorative econometrics model visualisation">
-        <div class="model-window">
-          <div class="window-top">
-            <span>forecast_model.m</span>
-            <div class="window-dots"><i></i><i></i><i></i></div>
-          </div>
-          <div class="code-block" aria-hidden="true">
-            <span class="line"><b>01</b><code><i>model</i> = ARIMA(2,0,0)</code></span>
-            <span class="line"><b>02</b><code><i>window</i> = expanding</code></span>
-            <span class="line"><b>03</b><code>forecast(h = <strong>1</strong>)</code></span>
-            <span class="line muted"><b>04</b><code>// evaluate OOS errors</code></span>
-            <span class="line"><b>05</b><code>DM_test(e₁, e₂)</code></span>
-          </div>
-          <div class="mini-chart">
-            <div class="chart-label">FORECAST ERROR</div>
-            <svg viewBox="0 0 520 170" role="img" aria-label="Decorative forecast error line chart">
-              <path class="gridline" d="M10 42H510 M10 85H510 M10 128H510" />
-              <path class="chart-area" d="M10 120 C45 110,65 118,96 90 S145 58,175 72 S230 110,260 84 S315 48,350 72 S410 110,510 62 L510 160 L10 160 Z" />
-              <path class="chart-line" d="M10 120 C45 110,65 118,96 90 S145 58,175 72 S230 110,260 84 S315 48,350 72 S410 110,510 62" />
-              <circle cx="510" cy="62" r="5" />
-            </svg>
-          </div>
-          <div class="model-footer">
-            <span><small>METHOD</small> Expanding window</span>
-            <span><small>FOCUS</small> Out-of-sample</span>
-          </div>
-        </div>
-        <span class="sticker sticker-a">causal<br>inference</span>
-        <span class="sticker sticker-b">R · Stata<br>MATLAB</span>
+
+
+
+     <div class="model-window">
+
+  <div class="window-top">
+    <span class="terminal-file">forecasting.R</span>
+    <div class="window-dots"><i></i><i></i><i></i></div>
+  </div>
+
+
+  <!-- SCREEN 1: FORECASTING -->
+  <div class="terminal-screen active" data-file="forecasting.R">
+
+    <div class="terminal-heading">
+      <span>01 / FORECASTING</span>
+      <strong>Out-of-sample evaluation</strong>
+    </div>
+
+    <div class="code-block" aria-hidden="true">
+      <span class="line"><b>01</b><code><i>model</i> = ARIMA</code></span>
+      <span class="line"><b>02</b><code><i>window</i> = expanding</code></span>
+      <span class="line"><b>03</b><code><i>horizon</i> = <strong>1</strong></code></span>
+    </div>
+
+    <div class="mini-chart">
+      <div class="chart-label">ACTUAL VS FORECAST</div>
+
+      <svg viewBox="0 0 520 180"
+           role="img"
+           aria-label="Illustrative actual and forecast time series">
+
+        <path class="gridline"
+              d="M10 45H510 M10 90H510 M10 135H510" />
+
+        <!-- forecast origin -->
+        <line class="forecast-origin"
+              x1="330" y1="18"
+              x2="330" y2="160" />
+
+        <text class="svg-label"
+              x="338" y="30">
+          FORECAST ORIGIN
+        </text>
+
+        <!-- actual -->
+        <path class="actual-line"
+              d="M10 122
+                 L45 112
+                 L80 118
+                 L115 91
+                 L150 101
+                 L185 72
+                 L220 83
+                 L255 61
+                 L290 75
+                 L330 57
+                 L365 69
+                 L400 48
+                 L435 63
+                 L470 45
+                 L510 54" />
+
+        <!-- forecast -->
+        <path class="forecast-line"
+              d="M330 57
+                 L365 64
+                 L400 57
+                 L435 55
+                 L470 51
+                 L510 49" />
+
+        <text class="svg-label"
+              x="425" y="88">
+          ACTUAL
+        </text>
+
+        <text class="svg-label"
+              x="425" y="108">
+          FORECAST
+        </text>
+
+      </svg>
+    </div>
+
+    <div class="model-footer">
+      <span><small>METHOD</small> Expanding window</span>
+      <span><small>FOCUS</small> Out-of-sample</span>
+    </div>
+
+  </div>
+
+
+  <!-- SCREEN 2: CAUSAL INFERENCE -->
+<div class="terminal-screen" data-file="causal_inference.do">
+
+  <div class="terminal-heading">
+    <span>02 / CAUSAL INFERENCE</span>
+    <strong>Difference-in-Differences</strong>
+  </div>
+
+  <div class="code-block" aria-hidden="true">
+    <span class="line"><b>01</b><code><i>group</i> = treatment / control</code></span>
+    <span class="line"><b>02</b><code><i>period</i> = pre / post</code></span>
+    <span class="line"><b>03</b><code><i>effect</i> = ΔT − ΔC</code></span>
+  </div>
+
+  <div class="mini-chart">
+    <div class="chart-label">DIFFERENCE-IN-DIFFERENCES</div>
+
+    <svg viewBox="0 0 520 180"
+         role="img"
+         aria-label="Illustrative difference-in-differences design">
+
+      <!-- horizontal grid -->
+      <path class="gridline"
+            d="M10 45H510 M10 90H510 M10 135H510" />
+
+      <!-- intervention -->
+      <line class="treatment-marker"
+            x1="280" y1="16"
+            x2="280" y2="160" />
+
+      <text class="svg-label"
+            x="289" y="27">
+        INTERVENTION
+      </text>
+
+      <!-- CONTROL:
+           different level from treatment,
+           but similar pre-treatment trend -->
+      <path class="control-line"
+            d="M35 126
+               L95 117
+               L155 106
+               L215 99
+               L275 88
+               L335 80
+               L395 69
+               L455 62
+               L500 54" />
+
+      <!-- TREATMENT:
+           higher level pre-treatment,
+           approximately parallel movement,
+           then separates immediately after intervention -->
+      <path class="treatment-line"
+            d="M35 103
+               L95 94
+               L155 83
+               L215 76
+               L275 65
+               L335 44
+               L395 31
+               L455 20
+               L500 14" />
+
+      <!-- COUNTERFACTUAL:
+           where treatment would approximately continue
+           under the parallel-trends assumption -->
+      <path class="counterfactual-line"
+            d="M275 65
+               L335 57
+               L395 46
+               L455 39
+               L500 31" />
+
+      <text class="svg-label"
+            x="405" y="18">
+        TREATMENT
+      </text>
+
+      <text class="svg-label"
+            x="424" y="72">
+        CONTROL
+      </text>
+
+      <text class="svg-label counterfactual-label"
+            x="330" y="58">
+        COUNTERFACTUAL
+      </text>
+
+      <!-- PRE / POST labels -->
+      <text class="svg-period-label"
+            x="130" y="157">
+        PRE
+      </text>
+
+      <text class="svg-period-label"
+            x="380" y="157">
+        POST
+      </text>
+
+    </svg>
+  </div>
+
+  <div class="model-footer">
+    <span><small>DESIGN</small> Treatment vs control</span>
+    <span><small>ASSUMPTION</small> Parallel trends</span>
+  </div>
+
+</div>
+
+
+ <!-- SCREEN 3: FINANCIAL MARKETS -->
+<div class="terminal-screen" data-file="volatility.R">
+
+  <div class="terminal-heading">
+    <span>03 / FINANCIAL MARKETS</span>
+    <strong>Volatility modelling</strong>
+  </div>
+
+  <div class="code-block" aria-hidden="true">
+    <span class="line"><b>01</b><code><i>rₜ</i> = Δ log(Pₜ)</code></span>
+    <span class="line"><b>02</b><code><i>model</i> = GARCH(1,1)</code></span>
+    <span class="line"><b>03</b><code><i>σ²ₜ</i> = ω + αε²ₜ₋₁ + βσ²ₜ₋₁</code></span>
+  </div>
+
+  <div class="mini-chart">
+    <div class="chart-label">RETURN VOLATILITY</div>
+
+    <svg viewBox="0 0 520 180"
+         role="img"
+         aria-label="Illustrative financial return series showing volatility clustering">
+
+      <!-- horizontal grid -->
+      <path class="gridline"
+            d="M10 45H510 M10 90H510 M10 135H510" />
+
+      <!-- zero return -->
+      <line class="zero-line"
+            x1="10" y1="90"
+            x2="510" y2="90" />
+
+      <text class="svg-label"
+            x="15" y="84">
+        0
+      </text>
+
+      <!-- irregular return series:
+           quiet -> volatile -> quiet -->
+      <path class="returns-line"
+            d="
+            M10 88
+            L25 84
+            L40 92
+            L55 87
+            L70 95
+            L85 89
+            L100 86
+            L115 93
+            L130 90
+            L145 96
+            L160 85
+            L175 91
+            L190 87
+            L205 94
+
+            L220 76
+            L235 103
+            L250 61
+            L265 119
+            L280 47
+            L295 107
+            L310 68
+            L325 128
+            L340 39
+            L355 82
+            L370 56
+            L385 111
+            L400 73
+
+            L415 96
+            L430 84
+            L445 91
+            L460 87
+            L475 94
+            L490 89
+            L505 92
+            " />
+
+      <!-- volatility cluster annotation -->
+      <line class="cluster-bracket"
+            x1="220" y1="22"
+            x2="400" y2="22" />
+
+      <line class="cluster-bracket"
+            x1="220" y1="22"
+            x2="220" y2="30" />
+
+      <line class="cluster-bracket"
+            x1="400" y1="22"
+            x2="400" y2="30" />
+
+      <text class="svg-label"
+            x="263" y="16">
+        HIGH VOLATILITY
+      </text>
+
+      <text class="svg-period-label"
+            x="75" y="155">
+        QUIET
+      </text>
+
+      <text class="svg-period-label"
+            x="275" y="155">
+        VOLATILE
+      </text>
+
+      <text class="svg-period-label"
+            x="445" y="155">
+        QUIET
+      </text>
+
+    </svg>
+  </div>
+
+  <div class="model-footer">
+    <span><small>MODEL</small> GARCH(1,1)</span>
+    <span><small>FEATURE</small> Volatility clustering</span>
+  </div>
+
+</div>
+
+       
       </div>
     </section>
 
@@ -87,21 +383,103 @@
       </div>
     </section>
 
-    <section class="section shell about" id="about">
-      <div class="section-kicker reveal"><span>01</span> About</div>
-      <div class="about-grid">
-        <h2 class="section-title reveal">Economics thinking.<br><em>Analyst execution.</em></h2>
-        <div class="about-copy reveal delay-1">
-          <p>I use data to answer practical questions: What changed? Why did it change? What is likely to happen next? And how confident should we be?</p>
-          <p>My toolkit combines statistical analysis, econometrics and visual communication. I’m particularly interested in work where rigorous modelling needs to translate into a concise story for decision-makers.</p>
-          <div class="facts">
-            <div><strong>Forecasting</strong><span>Time series & dynamic models</span></div>
-            <div><strong>Inference</strong><span>Experiments & causal methods</span></div>
-            <div><strong>Analytics</strong><span>Dashboards & decision support</span></div>
+   <section class="section shell about" id="about">
+  <div class="section-kicker reveal"><span>01</span> About</div>
+
+  <div class="about-grid">
+
+    <!-- LEFT SIDE -->
+    <div class="about-left reveal">
+      <h2 class="section-title">
+        Economics thinking.<br>
+        <em>Analyst execution.</em>
+      </h2>
+
+      <ol class="about-method-list">
+
+        <li>
+          <span>01</span>
+          <div>
+            <strong>Frame the question</strong>
+            <p>
+              Translate a broad problem into a measurable outcome and a
+              testable analytical question.
+            </p>
           </div>
+        </li>
+
+        <li>
+          <span>02</span>
+          <div>
+            <strong>Build the evidence</strong>
+            <p>
+              Clean, transform and interrogate data before choosing the
+              modelling strategy.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <span>03</span>
+          <div>
+            <strong>Stress-test the result</strong>
+            <p>
+              Use diagnostics, out-of-sample evaluation, robustness checks
+              and transparent assumptions.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <span>04</span>
+          <div>
+            <strong>Tell the story</strong>
+            <p>
+              Convert technical output into visual, concise recommendations
+              a non-technical audience can use.
+            </p>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="about-copy reveal delay-1">
+
+      <p>
+        I use data to answer practical questions: What changed? Why did it
+        change? What is likely to happen next? And how confident should we be?
+      </p>
+
+      <p>
+        My toolkit combines statistical analysis, econometrics and visual
+        communication. I’m particularly interested in work where rigorous
+        modelling needs to translate into a concise story for decision-makers.
+      </p>
+
+      <div class="facts">
+        <div>
+          <strong>Forecasting</strong>
+          <span>Time series &amp; dynamic models</span>
+        </div>
+
+        <div>
+          <strong>Inference</strong>
+          <span>Experiments &amp; causal methods</span>
+        </div>
+
+        <div>
+          <strong>Analytics</strong>
+          <span>Dashboards &amp; decision support</span>
         </div>
       </div>
-    </section>
+
+    </div>
+
+  </div>
+</section>
 
     <section class="section work-section" id="work">
       <div class="shell">
@@ -143,11 +521,23 @@
       <span>FEVD</span>
       <span>MATLAB</span>
     </div>
+<div class="project-links">
 
-    <a class="project-link" href="https://drive.google.com/file/d/1F3PJIjns4B5zvnW9_JA9KgN98ZnjPs3U/view?usp=drive_link">
-      View project <span>↗</span>
-    </a>
+  <a class="project-link"
+     href="https://drive.google.com/file/d/1F3PJIjns4B5zvnW9_JA9KgN98ZnjPs3U/view?usp=drive_link"
+     target="_blank"
+     rel="noopener noreferrer">
+    View project <span>↗</span>
+  </a>
 
+  <a class="project-link"
+     href="https://github.com/sarvesh-cj/A-Replication-of-Kilian-Park-2009-with-Extensions-to-Canada"
+     target="_blank"
+     rel="noopener noreferrer">
+    Replication files <span>↗</span>
+  </a>
+
+</div>
   </div>
 
 
@@ -192,7 +582,7 @@
     <span>AR(2) · Expanding Window · RMSE · Diebold–Mariano</span>
 
     <a
-      href="PASTE-CURRENCY-PROJECT-DRIVE-LINK-HERE"
+      href="https://github.com/sarvesh-cj/Exchange-rate-and-commodity-prices"
       target="_blank"
       rel="noopener noreferrer">
       View report ↗
@@ -375,21 +765,7 @@
       </div>
     </section>
 
-    <section class="section shell project-note" id="project-note">
-      <div class="section-kicker reveal"><span>03</span> How I work</div>
-      <div class="method-grid">
-        <div class="method-intro reveal">
-          <h2 class="section-title">Rigour first.<br><em>Clarity always.</em></h2>
-          <p>A good analysis is more than a model output. I structure projects around the decision, the identification or forecasting strategy, diagnostics, and communication.</p>
-        </div>
-        <ol class="method-list">
-          <li class="reveal"><span>01</span><div><strong>Frame the question</strong><p>Translate a broad problem into a measurable outcome and a testable analytical question.</p></div></li>
-          <li class="reveal"><span>02</span><div><strong>Build the evidence</strong><p>Clean, transform and interrogate data before choosing the modelling strategy.</p></div></li>
-          <li class="reveal"><span>03</span><div><strong>Stress-test the result</strong><p>Use diagnostics, out-of-sample evaluation, robustness checks and transparent assumptions.</p></div></li>
-          <li class="reveal"><span>04</span><div><strong>Tell the story</strong><p>Convert technical output into visual, concise recommendations a non-technical audience can use.</p></div></li>
-        </ol>
-      </div>
-    </section>
+    
 
     <section class="section skills-section" id="skills">
       <div class="shell">
@@ -426,13 +802,31 @@
       <div class="shell contact-inner reveal">
         <p class="eyebrow">Open to analyst & research opportunities</p>
         <h2>Have a problem hiding<br>inside a dataset?</h2>
-        <p>Add your email, LinkedIn and GitHub below, then publish this folder with GitHub Pages.</p>
+        
         <div class="contact-actions">
-          <a class="button button-light" href="mailto:your@email.com">your@email.com <span>↗</span></a>
-          <a class="contact-link" href="#" aria-label="LinkedIn placeholder">LinkedIn <span>↗</span></a>
-          <a class="contact-link" href="#" aria-label="GitHub placeholder">GitHub <span>↗</span></a>
-        </div>
-      </div>
+
+  <a class="button button-light"
+     href="mailto:sarveshcj@gmail.com">
+    sarveshcj@gmail.com <span>↗</span>
+  </a>
+
+  <a class="contact-link"
+     href="https://www.linkedin.com/in/sarvesh-bhagavathi-694a5225b"
+     target="_blank"
+     rel="noopener noreferrer">
+    LinkedIn <span>↗</span>
+  </a>
+
+  <a class="contact-link"
+     href="https://github.com/sarvesh-cj"
+     target="_blank"
+     rel="noopener noreferrer">
+    GitHub <span>↗</span>
+  </a>
+
+</div>
+
+      
       <div class="footer shell">
         <span>© <span id="year"></span> Sarvesh Bhagavathi</span>
         <span>Data Analyst & Econometrics</span>

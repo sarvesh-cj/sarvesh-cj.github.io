@@ -37,3 +37,25 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Rotating analytical terminal
+
+const terminalScreens = document.querySelectorAll('.terminal-screen');
+const terminalFile = document.querySelector('.terminal-file');
+
+let terminalIndex = 0;
+
+if (terminalScreens.length > 1 && terminalFile) {
+  setInterval(() => {
+
+    terminalScreens[terminalIndex].classList.remove('active');
+
+    terminalIndex = (terminalIndex + 1) % terminalScreens.length;
+
+    const nextScreen = terminalScreens[terminalIndex];
+
+    nextScreen.classList.add('active');
+    terminalFile.textContent = nextScreen.dataset.file;
+
+  }, 5000);
+}

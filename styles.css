@@ -40,3 +40,152 @@ button{font:inherit}
   height: auto;
   display: block;
 }
+
+/* About section workflow */
+
+.about-method-list {
+  list-style: none;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.about-method-list li {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-method-list li > span {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+
+.about-method-list strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.about-method-list p {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* ROTATING ANALYTICAL TERMINAL */
+
+.terminal-screen {
+  display: none;
+  animation: terminalFade .55s ease;
+}
+
+.terminal-screen.active {
+  display: block;
+}
+
+@keyframes terminalFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.terminal-heading {
+  padding: 22px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.terminal-heading span {
+  font: 10px var(--mono);
+  letter-spacing: .12em;
+  color: var(--lime);
+}
+
+.terminal-heading strong {
+  font: 10px var(--mono);
+  font-weight: 400;
+  color: #9eaaa3;
+}
+
+.forecast-origin,
+.treatment-marker {
+  stroke: rgba(255,255,255,.28);
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+
+.actual-line,
+.control-line,
+.treatment-line,
+.returns-line {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 3;
+}
+
+.forecast-line,
+.counterfactual-line {
+  fill: none;
+  stroke: #ffb58e;
+  stroke-width: 2.5;
+  stroke-dasharray: 7 6;
+}
+
+.control-line {
+  stroke: #9aa79f;
+}
+
+.counterfactual-line {
+  stroke: rgba(255,181,142,.65);
+}
+
+.zero-line {
+  stroke: rgba(255,255,255,.18);
+  stroke-width: 1;
+}
+
+.svg-label {
+  fill: #89978e;
+  font: 9px var(--mono);
+  letter-spacing: .05em;
+}
+
+/* Extra analytical chart labels */
+
+.svg-period-label {
+  fill: rgba(255,255,255,.38);
+  font: 9px var(--mono);
+  letter-spacing: .12em;
+}
+
+.counterfactual-label {
+  fill: #ffb58e;
+}
+
+.cluster-bracket {
+  stroke: rgba(255,255,255,.35);
+  stroke-width: 1;
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
